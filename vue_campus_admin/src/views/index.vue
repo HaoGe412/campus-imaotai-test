@@ -1,113 +1,98 @@
 <template>
-  <div class="app-container home">
-    <p>
-      本项目中所有内容只供学习和研究使用，不得将本项目中任何内容用于违反国家/地区/组织等的法律法规或相关规定的其他用途。
-    </p>
-    <p>
-      所有直接或间接使用本项目的个人和组织，应24小时内完成学习和研究，并及时删除本项目中的所有内容。如对本项目的功能有需求，应自行开发相关功能。
-    </p>
-    <p></p>
-    <p>本项目免费，无任何盈利</p>
-    <p>项目完全开源，更新地址：https://github.com/oddfar/campus-imaotai</p>
+  <div class="dashboard-editor-container">
 
-    <el-card class="box-card">
-      <p>版本情况:</p>
-      <p>campus-imaotai:{{ version }}</p>
-      <p>campus框架:{{ frameworkVersion }}</p>
-    </el-card>
+    <panel-group @handleSetLineChartData="handleSetLineChartData" />
+
+    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;">
+      <line-chart :chart-data="lineChartData" />
+    </el-row>
+
+    <el-row :gutter="32">
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <raddar-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <pie-chart />
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <div class="chart-wrapper">
+          <bar-chart />
+        </div>
+      </el-col>
+    </el-row>
+
+    
   </div>
 </template>
 
 <script>
-import {getVersion} from "@/api/system/index";
+import PanelGroup from './dashboard/PanelGroup'
+import LineChart from './dashboard/LineChart'
+import RaddarChart from './dashboard/RaddarChart'
+import PieChart from './dashboard/PieChart'
+import BarChart from './dashboard/BarChart'
+
+const lineChartData = {
+  newVisitis: {
+    expectedData: [100, 120, 161, 134, 105, 160, 165],
+    actualData: [120, 82, 91, 154, 162, 140, 145]
+  },
+  messages: {
+    expectedData: [200, 192, 120, 144, 160, 130, 140],
+    actualData: [180, 160, 151, 106, 145, 150, 130]
+  },
+  purchases: {
+    expectedData: [80, 100, 121, 104, 105, 90, 100],
+    actualData: [120, 90, 100, 138, 142, 130, 130]
+  },
+  shoppings: {
+    expectedData: [130, 140, 141, 142, 145, 150, 160],
+    actualData: [120, 82, 91, 154, 162, 140, 130]
+  }
+}
 
 export default {
-  name: "Index",
+  name: 'Index',
+  components: {
+    PanelGroup,
+    LineChart,
+    RaddarChart,
+    PieChart,
+    BarChart
+  },
   data() {
     return {
-      // 版本号
-      version: "",
-      frameworkVersion: "",
-    };
-  },
-  created() {
-    this.getVersion();
+      lineChartData: lineChartData.newVisitis
+    }
   },
   methods: {
-    getVersion() {
-      getVersion().then((response) => {
-          this.version = response.data.version;
-          this.frameworkVersion = response.data.frameworkVersion;
-        }
-      );
-    }
-  },
-};
-</script>
-
-<style scoped lang="scss">
-.home {
-  blockquote {
-    padding: 10px 20px;
-    margin: 0 0 20px;
-    font-size: 17.5px;
-    border-left: 5px solid #eee;
-  }
-
-  hr {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 1px solid #eee;
-  }
-
-  .col-item {
-    margin-bottom: 20px;
-  }
-
-  ul {
-    padding: 0;
-    margin: 0;
-  }
-
-  font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  color: #676a6c;
-  overflow-x: hidden;
-
-  ul {
-    list-style-type: none;
-  }
-
-  h4 {
-    margin-top: 0px;
-  }
-
-  h2 {
-    margin-top: 10px;
-    font-size: 26px;
-    font-weight: 100;
-  }
-
-  p {
-    margin-top: 10px;
-
-    b {
-      font-weight: 700;
-    }
-  }
-
-  .update-log {
-    ol {
-      display: block;
-      list-style-type: decimal;
-      margin-block-start: 1em;
-      margin-block-end: 1em;
-      margin-inline-start: 0;
-      margin-inline-end: 0;
-      padding-inline-start: 40px;
+    handleSetLineChartData(type) {
+      this.lineChartData = lineChartData[type]
     }
   }
 }
-</style>
+</script>
 
+<style lang="scss" scoped>
+.dashboard-editor-container {
+  padding: 32px;
+  background-color: rgb(240, 242, 245);
+  position: relative;
+
+  .chart-wrapper {
+    background: #fff;
+    padding: 16px 16px 0;
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width:1024px) {
+  .chart-wrapper {
+    padding: 8px;
+  }
+}
+</style>

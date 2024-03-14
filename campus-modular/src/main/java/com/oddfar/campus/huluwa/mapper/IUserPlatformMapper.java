@@ -7,6 +7,6 @@ import com.oddfar.campus.huluwa.entity.UserPlatform;
 
 public interface IUserPlatformMapper extends BaseMapperX<UserPlatform> {
     default PageResult<UserPlatform> selectPage(UserPlatform userPlatform) {
-        return this.selectPage((new LambdaQueryWrapperX()).eqIfPresent(UserPlatform::getPhone, userPlatform.getPhone()).eqIfPresent(UserPlatform::getPlatform, userPlatform.getPlatform()).likeIfPresent(UserPlatform::getNickName, userPlatform.getNickName()).likeIfPresent(UserPlatform::getRealName, userPlatform.getRealName()).orderByDesc(UserPlatform::getStamp));
+        return this.selectPage((new LambdaQueryWrapperX<UserPlatform>()).eqIfPresent(UserPlatform::getPhone, userPlatform.getPhone()).eqIfPresent(UserPlatform::getPlatform, userPlatform.getPlatform()).likeIfPresent(UserPlatform::getNickName, userPlatform.getNickName()).likeIfPresent(UserPlatform::getRealName, userPlatform.getRealName()).orderByDesc(UserPlatform::getStamp));
     }
 }

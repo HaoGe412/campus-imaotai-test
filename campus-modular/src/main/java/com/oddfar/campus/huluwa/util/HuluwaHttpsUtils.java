@@ -55,12 +55,12 @@ public class HuluwaHttpsUtils {
         if (response == null) {
             return null;
         } else {
-            BaseResult result;
+            R result;
             if (!response.isSuccess()) {
                 log.error("[{}]请求信息失败：{}", uri, response);
 
                 try {
-                    result = (BaseResult)clz.newInstance();
+                    result = clz.newInstance();
                     result.setSuccess(false);
                     result.setMessage(response.getMessage());
                     return result;
@@ -69,7 +69,7 @@ public class HuluwaHttpsUtils {
                     return null;
                 }
             } else {
-                result = (BaseResult) JSONUtil.toBean(response.getData(), clz);
+                result = JSONUtil.toBean(response.getData(), clz);
                 result.setMessage(response.getMessage());
                 result.setSuccess(response.isSuccess());
                 return result;

@@ -1,5 +1,20 @@
 package com.oddfar.campus.huluwa.task;
 
+import com.oddfar.campus.huluwa.domain.ActionLogInfo;
+import com.oddfar.campus.huluwa.entity.RequestLog;
+import com.oddfar.campus.huluwa.repository.HuluwaLogRepository;
+import com.oddfar.campus.huluwa.service.IActionLogService;
+import com.oddfar.campus.huluwa.service.IRequestLogService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.Iterator;
+import java.util.List;
+
 @EnableScheduling
 @Component
 public class HuluwaLogTask {

@@ -1,5 +1,6 @@
 package com.oddfar.campus.huluwa.task;
 
+import com.oddfar.campus.huluwa.service.IUserPlatformService;
 import com.oddfar.campus.huluwa.util.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -22,3 +22,4 @@ public class CustomerController {
     public R info(PlatformEnum platformEnum, String token) {
         return R.ok(this.customerService.queryInfo(platformEnum, token));
     }
+}
